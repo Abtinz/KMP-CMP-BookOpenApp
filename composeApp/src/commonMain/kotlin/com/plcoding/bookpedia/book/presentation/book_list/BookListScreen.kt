@@ -46,6 +46,17 @@ import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
+/**
+ * A root composable for the book list screen.
+ * This function is responsible for creating and providing the [BookListViewModel]
+ * and handling the navigation event when a book is clicked.
+ * It collects the state from the ViewModel and passes it, along with a unified
+ * action handler, to the stateless [BookListScreen].
+ *
+ * @param viewModel The ViewModel for this screen, injected by default using Koin's `koinViewModel()`.
+ * @param onBookClick A lambda to be invoked when a book item is clicked,
+ *                    used to navigate to the book's detail screen.
+ */
 @Composable
 fun BookListScreenRoot(
     viewModel: BookListViewModel = koinViewModel(),
@@ -60,16 +71,32 @@ fun BookListScreenRoot(
                 is BookListAction.OnBookClick -> onBookClick(action.book)
                 else -> Unit
             }
+
+            //we need to call needed action(api/database calls) in viewmodel whatever the action is
             viewModel.onAction(action)
         }
     )
 }
 
+/**
+ * A composable function that displays the main book list screen.
+ * This screen includes a search bar, a tab layout for switching between search results and favorites,
+ * and a pager to display the content of the selected tab.
+ *
+ * It manages the UI state based on the provided [BookListState] and communicates user interactions
+ * back through the [onAction] callback.
+ *
+ * @param state The current state of the book list screen, containing search results, favorite books,
+ * loading status, error messages, and more.
+ * @param onAction A callback function to handle user actions, such as clicking a book,
+ * changing the search query, or selecting a tab.
+ */
 @Composable
 fun BookListScreen(
     state: BookListState,
     onAction: (BookListAction) -> Unit,
 ) {
+
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val pagerState = rememberPagerState { 2 }

@@ -37,6 +37,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -51,6 +53,18 @@ import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.round
 
+/**
+ * A Composable function that displays a single book item in a list format.
+ * It shows the book's cover image, title, primary author, and average rating.
+ * The item is clickable, triggering the provided `onClick` lambda.
+ *
+ * While the book cover is loading, a pulsing animation is shown. If the image fails to load,
+ * a placeholder error image is displayed. The image appearance includes a subtle animation.
+ *
+ * @param book The [Book] data object to display.
+ * @param onClick A lambda function to be invoked when the item is clicked.
+ * @param modifier The [Modifier] to be applied to the component.
+ */
 @Composable
 fun BookListItem(
     book: Book,
@@ -76,6 +90,8 @@ fun BookListItem(
                     .height(100.dp),
                 contentAlignment = Alignment.Center
             ) {
+
+                // I really like the way lackner loads images here, its very expertize
                 var imageLoadResult by remember {
                     mutableStateOf<Result<Painter>?>(null)
                 }
@@ -135,6 +151,7 @@ fun BookListItem(
                     }
                 }
             }
+
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -147,6 +164,8 @@ fun BookListItem(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
+
+                //In this case we only need to demonstrate the first author's name
                 book.authors.firstOrNull()?.let { authorName ->
                     Text(
                         text = authorName,
@@ -155,13 +174,18 @@ fun BookListItem(
                         overflow = TextOverflow.Ellipsis
                     )
                 }
+
+                //Is there an published ranking? If so, we will show it rounded with rating icon
                 book.averageRating?.let { rating ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "${round(rating * 10) / 10.0}",
-                            style = MaterialTheme.typography.bodyMedium
+                            text = "${round(rating * 10) / 10.0}", //I will add this function to viewmodel later ...
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold)
+
                         )
                         Icon(
                             imageVector = Icons.Default.Star,
@@ -171,6 +195,7 @@ fun BookListItem(
                     }
                 }
             }
+
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = null,

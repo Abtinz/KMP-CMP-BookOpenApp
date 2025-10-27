@@ -14,6 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.plcoding.bookpedia.book.domain.Book
 
+/**
+ * A Composable that displays a vertical list of books.
+ * It uses a [LazyColumn] to efficiently display a potentially large list of items.
+ *
+ * @param books The list of [Book] objects to be displayed.
+ * @param onBookClick A lambda function to be invoked when a book item is clicked. It receives the clicked [Book] as a parameter.
+ * @param modifier The [Modifier] to be applied to the [LazyColumn]. Defaults to [Modifier].
+ * @param scrollState The [LazyListState] to be used by the [LazyColumn], allowing control and observation of the scroll position. Defaults to a new state remembered by [rememberLazyListState].
+ */
 @Composable
 fun BookList(
     books: List<Book>,

@@ -17,8 +17,27 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
+/**
+ * A Koin module that provides platform-specific dependencies.
+ *
+ * This `expect` declaration is part of a Kotlin Multiplatform setup.
+ * The `actual` implementation for each platform (e.g., Android, iOS)
+ * will define the specific bindings required for that platform, such as
+ * database drivers, context, or other platform-specific APIs.
+ */
 expect val platformModule: Module
 
+/**
+ * A Koin module that provides shared dependencies for the application,
+ * common across different platforms (Android, iOS, etc.).
+ *
+ * This module is responsible for setting up:
+ * - Networking components like the Ktor `HttpClient`.
+ * - Data sources, such as the `RemoteBookDataSource`.
+ * - Repositories, like the `BookRepository`.
+ * - The application's database (`FavoriteBookDatabase`) and its DAOs (`favoriteBookDao`).
+ * - Shared ViewModels used in the presentation layer.
+ */
 val sharedModule = module {
     single { HttpClientFactory.create(get()) }
     singleOf(::KtorRemoteBookDataSource).bind<RemoteBookDataSource>()

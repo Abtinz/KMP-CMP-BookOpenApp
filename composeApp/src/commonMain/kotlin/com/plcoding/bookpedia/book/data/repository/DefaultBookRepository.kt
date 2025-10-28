@@ -73,7 +73,7 @@ class DefaultBookRepository(
      */
     override fun getFavoriteBooks(): Flow<List<Book>> {
         return favoriteBookDao
-            .getFavoriteBooks()
+            .getAllFavoriteBooks()
             .map { bookEntities ->
                 // Maps the list of database entities to a list of domain Book objects.
                 bookEntities.map { it.toBook() }
@@ -89,7 +89,7 @@ class DefaultBookRepository(
      */
     override fun isBookFavorite(id: String): Flow<Boolean> {
         return favoriteBookDao
-            .getFavoriteBooks()
+            .getAllFavoriteBooks()
             .map { bookEntities ->
                 // Checks if any book in the list of favorites has the matching ID.
                 bookEntities.any { it.id == id }

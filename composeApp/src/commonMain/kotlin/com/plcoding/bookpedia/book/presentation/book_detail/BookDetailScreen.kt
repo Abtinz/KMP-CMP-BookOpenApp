@@ -44,6 +44,18 @@ import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.round
 
+/**
+ * A root composable that connects the [BookDetailViewModel] to the [BookDetailScreen].
+ *
+ * This function is responsible for collecting the state from the `viewModel`,
+ * and passing it down to the stateless `BookDetailScreen`. It also handles
+ * actions from the UI, such as the back button click, by delegating them
+ * to the `viewModel` or the `onBackClick` callback.
+ *
+ * @param viewModel The view model that holds the state and business logic for the book detail screen.
+ * @param onBackClick A lambda function to be invoked when the user clicks the back button,
+ *                    typically used for navigation.
+ */
 @Composable
 fun BookDetailScreenRoot(
     viewModel: BookDetailViewModel,
@@ -63,6 +75,16 @@ fun BookDetailScreenRoot(
     )
 }
 
+/**
+ * A private composable that displays the detailed information of a book.
+ * It's a stateless component that receives the current state and a lambda to handle user actions.
+ * The UI is built with a blurred image background and a scrollable column for the book's details.
+ *
+ * @param state The current state of the book detail screen, containing the book information,
+ * loading status, and favorite status.
+ * @param onAction A callback function to be invoked when a user action occurs, such as clicking
+ * the back button or the favorite icon.
+ */
 @Composable
 private fun BookDetailScreen(
     state: BookDetailState,
@@ -168,14 +190,8 @@ private fun BookDetailScreen(
                         )
                 )
                 if(state.isLoading) {
+                    //loading our details
                     CircularProgressIndicator()
-//                    Box(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .weight(1f),
-//                        contentAlignment = Alignment.Center
-//                    ) {
-//                    }
                 } else {
                     Text(
                         text = if(state.book.description.isNullOrBlank()) {

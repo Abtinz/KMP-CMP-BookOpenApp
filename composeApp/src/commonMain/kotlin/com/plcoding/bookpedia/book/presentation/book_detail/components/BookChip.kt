@@ -19,6 +19,18 @@ enum class ChipSize {
     SMALL, REGULAR
 }
 
+/**
+ * A composable that displays a styled chip, typically used for showing small pieces of information
+ * like categories, ratings, or other book-related metadata.
+ *
+ * The chip has a rounded corner shape, a light blue background, and centered content.
+ * Its minimum width can be adjusted via the `size` parameter.
+ *
+ * @param modifier The modifier to be applied to the chip.
+ * @param size The size of the chip, which determines its minimum width. Defaults to [ChipSize.REGULAR].
+ * @param chipContent A composable lambda that defines the content to be displayed inside the chip.
+ *                    The content is placed within a `RowScope`, allowing for horizontal arrangement.
+ */
 @Composable
 fun BookChip(
     modifier: Modifier = Modifier,

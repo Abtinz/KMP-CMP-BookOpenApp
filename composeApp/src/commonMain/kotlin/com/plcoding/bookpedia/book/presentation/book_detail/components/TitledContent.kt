@@ -7,6 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+/**
+ * A composable that displays a title followed by some content, arranged vertically
+ * in a column and centered horizontally.
+ *
+ * @param title The string to be displayed as the title.
+ * @param modifier The modifier to be applied to the `Column` layout.
+ * @param content The composable lambda to be displayed below the title.
+ */
 @Composable
 fun TitledContent(
     title: String,

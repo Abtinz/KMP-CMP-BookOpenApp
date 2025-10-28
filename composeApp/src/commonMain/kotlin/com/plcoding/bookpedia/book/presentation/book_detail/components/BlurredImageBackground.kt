@@ -53,6 +53,28 @@ import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+/**
+ * A Composable that displays a screen layout with a blurred image background at the top
+ * and a prominent, elevated card in the center showing the same image, un-blurred.
+ * It includes controls for navigation and marking an item as a favorite.
+ *
+ * The layout is split vertically: the top 30% shows the blurred image, and the bottom 70%
+ * has a solid color background. A back button is placed at the top-left.
+ *
+ * The central card displays the image fetched from `imageUrl`. While the image is loading,
+ * a pulsing animation is shown. If the image fails to load, a placeholder error image is displayed.
+ * A favorite icon is overlaid on the bottom-right of the card, allowing the user to toggle
+ * the favorite state.
+ *
+ * The provided `content` Composable is placed below the central image card.
+ *
+ * @param imageUrl The URL of the image to be displayed and used for the blurred background.
+ * @param isFavorite A boolean indicating whether the item is currently marked as a favorite.
+ * @param onFavoriteClick A lambda function to be invoked when the favorite icon is clicked.
+ * @param onBackClick A lambda function to be invoked when the back button is clicked.
+ * @param modifier The [Modifier] to be applied to the root container of this Composable.
+ * @param content A slot for composable content to be displayed below the central image card.
+ */
 @Composable
 fun BlurredImageBackground(
     imageUrl: String?,
@@ -80,11 +102,15 @@ fun BlurredImageBackground(
         }
     )
 
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
         ) {
+
+            //blued background image
             Box(
                 modifier = Modifier
                     .weight(0.3f)
@@ -97,7 +123,7 @@ fun BlurredImageBackground(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
-                        .blur(20.dp)
+                        .blur(30.dp)
                 )
             }
 
@@ -109,6 +135,7 @@ fun BlurredImageBackground(
             )
         }
 
+        //go-back button option section
         IconButton(
             onClick = onBackClick,
             modifier = Modifier
@@ -123,11 +150,18 @@ fun BlurredImageBackground(
             )
         }
 
+        //
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.fillMaxHeight(0.15f))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxHeight(0.15f)
+            )
+
+
             ElevatedCard(
                 modifier = Modifier
                     .height(230.dp)

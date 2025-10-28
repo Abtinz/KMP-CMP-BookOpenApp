@@ -47,7 +47,7 @@ class BookDetailViewModel(
      * It's configured to start fetching the book description and observing its favorite
      * status as soon as a collector subscribes to it.
      *
-     * - [stateIn] converts the cold flow into a hot [StateFlow], caching the latest value.
+     * - [stateIn] converts the cold flow into a hot [kotlinx.coroutines.flow.StateFlow], caching the latest value.
      * - [SharingStarted.WhileSubscribed(5000L)] keeps the upstream flow active for 5 seconds
      *   after the last collector disappears, useful for surviving configuration changes.
      */
@@ -102,7 +102,7 @@ class BookDetailViewModel(
 
     /**
      * Observes the favorite status of the current book from the repository.
-     * The returned [Flow] emits a new boolean value whenever the favorite status changes,
+     * The returned [kotlinx.coroutines.flow.Flow] emits a new boolean value whenever the favorite status changes,
      * which then updates the UI state.
      */
     private fun observeFavoriteStatus() {

@@ -11,10 +11,22 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 
+/**
+ * A Composable function that displays a pulsing animation effect.
+ *
+ * This animation consists of a circular border that repeatedly scales up and fades out,
+ * creating a "pulse" or "ripple" effect. The animation runs indefinitely.
+ *
+ * The core of the animation is an `infiniteRepeatable` transition that animates a float
+ * value from 0f to 1f over 1000 milliseconds. This value is then used to control the
+ * scale (from 0 to 1) and alpha (from 1 to 0) of a `Box` with a circular border.
+ *
+ * @param modifier The [Modifier] to be applied to the animation container. This allows for
+ * customization of size, padding, alignment, etc., from the call site.
+ */
 @Composable
 fun PulseAnimation(modifier: Modifier = Modifier) {
     val transition = rememberInfiniteTransition()

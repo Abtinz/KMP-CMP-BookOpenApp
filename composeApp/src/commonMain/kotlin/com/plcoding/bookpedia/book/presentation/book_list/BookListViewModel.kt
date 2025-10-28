@@ -50,7 +50,7 @@ class BookListViewModel(
      * It's configured to start observing the search query and favorite books when a collector
      * subscribes to it.
      *
-     * - [stateIn] converts the cold flow into a hot [StateFlow], caching the latest value.
+     * - [stateIn] converts the cold flow into a hot [kotlinx.coroutines.flow.StateFlow], caching the latest value.
      * - [SharingStarted.WhileSubscribed(5000L)] keeps the upstream flow active for 5 seconds
      *   after the last collector disappears, which is useful for surviving configuration changes.
      */

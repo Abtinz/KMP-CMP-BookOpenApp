@@ -29,15 +29,15 @@ suspend inline fun <reified T> safeCall(
     val response = try {
         // Attempt to execute the provided network call lambda.
         execute()
-    } catch(e: SocketTimeoutException) {
+    } catch(_: SocketTimeoutException) {
         // If the request takes too long to complete, a SocketTimeoutException is thrown.
         // We catch it and return a specific REQUEST_TIMEOUT error.
         return Result.Error(DataError.Remote.REQUEST_TIMEOUT)
-    } catch(e: UnresolvedAddressException) {
+    } catch(_: UnresolvedAddressException) {
         // This exception is thrown when the device has no internet connection or the
         // server's address cannot be resolved. We map this to a NO_INTERNET error.
         return Result.Error(DataError.Remote.NO_INTERNET)
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         // This is a general catch-all for any other unexpected exceptions.
         // It ensures the coroutine is still active before returning an UNKNOWN error.
         coroutineContext.ensureActive()
@@ -67,7 +67,7 @@ suspend inline fun <reified T> responseToResult(
             try {
                 // Attempt to deserialize the response body into an object of type T.
                 Result.Success(response.body<T>())
-            } catch(e: NoTransformationFoundException) {
+            } catch(_: NoTransformationFoundException) {
                 // If Ktor cannot deserialize the body (e.g., JSON structure mismatch),
                 // it throws this exception. We map it to a SERIALIZATION error.
                 Result.Error(DataError.Remote.SERIALIZATION)

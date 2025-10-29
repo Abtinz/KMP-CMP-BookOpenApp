@@ -43,7 +43,7 @@ import cmp_bookpedia.composeapp.generated.resources.go_back
 import cmp_bookpedia.composeapp.generated.resources.mark_as_favorite
 import cmp_bookpedia.composeapp.generated.resources.remove_from_favorites
 import coil3.compose.rememberAsyncImagePainter
-import com.plcoding.bookpedia.core.presentation.DarkBlue
+import com.plcoding.bookpedia.core.presentation.DarkGreen
 import com.plcoding.bookpedia.core.presentation.DesertWhite
 import com.plcoding.bookpedia.core.presentation.PulseAnimation
 import com.plcoding.bookpedia.core.presentation.SandYellow
@@ -112,7 +112,7 @@ fun BlurredImageBackground(
                 modifier = Modifier
                     .weight(0.3f)
                     .fillMaxWidth()
-                    .background(DarkBlue)
+                    .background(DarkGreen)
             ) {
                 Image(
                     painter = painter,
@@ -147,7 +147,6 @@ fun BlurredImageBackground(
             )
         }
 
-        //
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -216,7 +215,7 @@ fun BlurredImageBackground(
                                         } else {
                                             Icons.Outlined.FavoriteBorder
                                         },
-                                        tint = Color.Red,
+                                        tint = DarkGreen,
                                         contentDescription = if(isFavorite) {
                                             stringResource(Res.string.remove_from_favorites)
                                         } else {

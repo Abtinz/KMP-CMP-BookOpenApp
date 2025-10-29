@@ -25,7 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import cmp_bookpedia.composeapp.generated.resources.Res
 import cmp_bookpedia.composeapp.generated.resources.close_hint
 import cmp_bookpedia.composeapp.generated.resources.search_hint
-import com.plcoding.bookpedia.core.presentation.DarkBlue
+import com.plcoding.bookpedia.core.presentation.DarkGreen
 import com.plcoding.bookpedia.core.presentation.DesertWhite
 import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.stringResource
@@ -63,7 +63,7 @@ fun BookSearchBar(
             onValueChange = onSearchQueryChange,
             shape = RoundedCornerShape(100),
             colors = OutlinedTextFieldDefaults.colors(
-                cursorColor = DarkBlue,
+                cursorColor = DarkGreen,
                 focusedBorderColor = SandYellow
             ),
             placeholder = {

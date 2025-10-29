@@ -40,7 +40,7 @@ import cmp_bookpedia.composeapp.generated.resources.search_results
 import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.book.presentation.book_list.components.BookList
 import com.plcoding.bookpedia.book.presentation.book_list.components.BookSearchBar
-import com.plcoding.bookpedia.core.presentation.DarkBlue
+import com.plcoding.bookpedia.core.presentation.DarkGreen
 import com.plcoding.bookpedia.core.presentation.DesertWhite
 import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.stringResource
@@ -118,7 +118,7 @@ fun BookListScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBlue)
+            .background(DarkGreen)
             .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

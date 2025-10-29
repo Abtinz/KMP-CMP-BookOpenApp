@@ -38,7 +38,9 @@ import com.plcoding.bookpedia.book.presentation.book_detail.components.BlurredIm
 import com.plcoding.bookpedia.book.presentation.book_detail.components.BookChip
 import com.plcoding.bookpedia.book.presentation.book_detail.components.ChipSize
 import com.plcoding.bookpedia.book.presentation.book_detail.components.TitledContent
+import com.plcoding.bookpedia.core.presentation.DarkGreen
 import com.plcoding.bookpedia.core.presentation.SandYellow
+import com.plcoding.bookpedia.core.presentation.primary
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.round
 
@@ -113,11 +115,13 @@ private fun BookDetailScreen(
             ) {
                 Text(
                     text = state.book.title,
+                    color = primary,
                     style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Center
                 )
                 Text(
                     text = state.book.authors.joinToString(),
+                    color =  primary,
                     style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center
                 )
@@ -132,7 +136,8 @@ private fun BookDetailScreen(
                         ) {
                             BookChip {
                                 Text(
-                                    text = "${round(rating * 10) / 10.0}"
+                                    text = "${round(rating * 10) / 10.0}",
+                                    color = primary
                                 )
                                 Icon(
                                     imageVector = Icons.Default.Star,
@@ -147,7 +152,10 @@ private fun BookDetailScreen(
                             title = stringResource(Res.string.pages),
                         ) {
                             BookChip {
-                                Text(text = pageCount.toString())
+                                Text(
+                                    text = pageCount.toString(),
+                                    color =primary
+                                )
                             }
                         }
                     }
@@ -169,6 +177,7 @@ private fun BookDetailScreen(
                                 ) {
                                     Text(
                                         text = language.uppercase(),
+                                        color = primary,
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
@@ -189,7 +198,9 @@ private fun BookDetailScreen(
                 )
                 if(state.isLoading) {
                     //loading our details
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(
+                        color=DarkGreen
+                    )
                 } else {
                     Text(
                         text = if(state.book.description.isNullOrBlank()) {

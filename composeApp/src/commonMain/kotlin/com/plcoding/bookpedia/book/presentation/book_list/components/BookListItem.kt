@@ -44,9 +44,11 @@ import cmp_bookpedia.composeapp.generated.resources.book_error_2
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
 import com.plcoding.bookpedia.book.domain.Book
-import com.plcoding.bookpedia.core.presentation.LightBlue
+import com.plcoding.bookpedia.core.presentation.DarkGreen
+import com.plcoding.bookpedia.core.presentation.LightGreen
 import com.plcoding.bookpedia.core.presentation.PulseAnimation
 import com.plcoding.bookpedia.core.presentation.SandYellow
+import com.plcoding.bookpedia.core.presentation.primary
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.round
 
@@ -72,7 +74,7 @@ fun BookListItem(
         shape = RoundedCornerShape(32.dp),
         modifier = modifier
             .clickable(onClick = onClick),
-        color = LightBlue.copy(alpha = 0.2f)
+        color = LightGreen.copy(alpha = 0.2f)
     ) {
         Row(
             modifier = Modifier
@@ -157,6 +159,7 @@ fun BookListItem(
             ) {
                 Text(
                     text = book.title,
+                    color = primary,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -166,6 +169,7 @@ fun BookListItem(
                 book.authors.firstOrNull()?.let { authorName ->
                     Text(
                         text = authorName,
+                        color = primary,
                         style = MaterialTheme.typography.bodyLarge,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -179,6 +183,7 @@ fun BookListItem(
                     ) {
                         Text(
                             text = "${round(rating * 10) / 10.0}", //I will add this function to viewmodel later ...
+                            color = primary,
                             style = TextStyle(
                                 color = Color.Black,
                                 fontWeight = FontWeight.Bold)
@@ -196,6 +201,7 @@ fun BookListItem(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = null,
+                tint = DarkGreen,
                 modifier = Modifier
                     .size(36.dp)
             )

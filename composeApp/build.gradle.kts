@@ -9,8 +9,21 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
+    // 1. REMOVE the Room Gradle Plugin. This is the most important change.
+    // alias(libs.plugins.room)
 }
+
+// 2. REMOVE the top-level room { ... } block entirely.
+// room {
+//    schemaDirectory("$projectDir/schemas")
+// }
+
+// 3. ADD a ksp block to configure the schema path directly.
+// This is now the single source of truth for the schema location.
+ksp {
+    arg("room.schemaDirectory", "$projectDir/schemas")
+}
+
 
 kotlin {
     androidTarget {
@@ -19,7 +32,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -30,16 +43,12 @@ kotlin {
             isStatic = true
         }
     }
-    
-    jvm("desktop")
 
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
+    jvm("desktop")
 
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -58,8 +67,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
 
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.jetbrains.compose.navigation)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.androidx.room.runtime)
@@ -78,10 +85,6 @@ kotlin {
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
-        }
-
-        dependencies {
-            ksp(libs.androidx.room.compiler)
         }
     }
 }
@@ -115,6 +118,14 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+
+    // Using `add` is not standard for KSP. Let's use the target-specific method.
+    // This is a more explicit and reliable way to apply the KSP dependency.
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspDesktop", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 }
 
 compose.desktop {
@@ -128,3 +139,4 @@ compose.desktop {
         }
     }
 }
+
